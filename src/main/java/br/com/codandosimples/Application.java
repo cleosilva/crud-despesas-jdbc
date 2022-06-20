@@ -5,19 +5,27 @@ import br.com.codandosimples.model.Categoria;
 import br.com.codandosimples.model.Despesa;
 
 import java.time.LocalDate;
+import java.util.List;
+import java.util.Optional;
 
 public class Application {
     public static void main(String[] args) {
 
         DespesasDAO dao = new DespesasDAO();
-
-        Despesa despesa = new Despesa();
-        despesa.setDescricao("Hortifruti");
-        despesa.setCategoria(Categoria.ALIMENTACAO);
-        despesa.setValor(50);
-        despesa.setData(LocalDate.of(2022, 6, 20));
-
-        Despesa despesaInserida = dao.save(despesa);
-        System.out.println("Foi inserida a despesa com id: " + despesaInserida.getId());
+//        List<Despesa> despesas = dao.findAll();
+//
+//        for (Despesa despesa: despesas) {
+//            System.out.println("ID: " + despesa.getId());
+//            System.out.println("Descrição: " + despesa.getDescricao());
+//            System.out.println("Valor: " + despesa.getValor());
+//            System.out.println("**********************************");
+//        }
+        Optional<Despesa> despesaOptional =  dao.findById(2L);
+        despesaOptional.ifPresent(despesa -> {
+            System.out.println("ID: " + despesa.getId());
+            System.out.println("Descrição: " + despesa.getDescricao());
+            System.out.println("Valor: " + despesa.getValor());
+        });
     }
+
 }
